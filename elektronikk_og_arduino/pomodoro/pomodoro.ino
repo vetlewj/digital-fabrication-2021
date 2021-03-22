@@ -18,7 +18,7 @@ unsigned int minutes = 0;
 
 // setter hvor lenge jobb og pause skal være
 // under testing sto disse på 1, til vanlig vil de være 25 og 5. 
-unsigned int workTime = 1;
+unsigned int workTime = 15;
 unsigned int breakTime = 1;
 
 void setup()
@@ -71,23 +71,14 @@ void loop()
             lcd.print(seconds);
         /*
          * Hvis (antall minutter overstiger eller er lik lengden det skal arbeides
-         * og runningState er pause)
+         * og runningState er arbeid)
          * {
          *  nullstill minutter og sekunder, 
-         *  endre RunningState til arbeid, 
+         *  endre RunningState til pause, 
          *  og print ut melding i øverste rad på skjermen
          * }
          */
-        if (minutes >= workTime && runningState == 0)
-            {
-                seconds = 0; 
-                minutes = 0;
-                runningState = 1;
-                lcd.setCursor(0, 0);
-                lcd.print("Time to work!   ");
-            }
-        // samme som over, bare for annet tilfelle
-        if (minutes >= breakTime && runningState == 1)
+         if (minutes >= workTime && runningState == 1)
             {
               seconds = 0; 
               minutes = 0;
@@ -95,5 +86,16 @@ void loop()
               lcd.setCursor(0, 0);
               lcd.print("Time for a break");
             }
+        // samme som over, bare for annet tilfelle
+        if (minutes >= breakTime && runningState == 0)
+            {
+                seconds = 0; 
+                minutes = 0;
+                runningState = 1;
+                lcd.setCursor(0, 0);
+                lcd.print("Time to work!   ");
+            }
+        
+        
     }
 }
